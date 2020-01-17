@@ -6,3 +6,8 @@ Provides equivalent of ```docker run -it debian:buster bash```
 # Run
 ```shell
 root@<xx,xx,xx>: $ ./start-container.sh
+```
+
+# Dependencies
+1. Netsetgo https://github.com/teddyking/netsetgo (if you need internet connectivity, run the NAT commands in the repo)
+
