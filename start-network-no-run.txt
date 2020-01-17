@@ -1,0 +1,26 @@
+NB: Shows non-fun equivalent of netsetgo, do not run!
+
+#!/usr/bin/env bash
+
+# Create a virtual network switch (type: Linux Bridge) for our containers
+ip link add v-net-c type bridge
+# Turn up the network switch
+ip link set dev v-net-c up
+
+# Create virtual ethernet cable to attach to switch
+ip link add veth-c type veth peer name veth-c-br
+
+# Attach virtual ethernet cable to container network ns
+ip link set veth-c netns container
+
+# Attach virtual ethernet cable to virtual network switch
+ip link set veth-c-br master v-net-c
+
+# Assign ip address to container
+ip -n container addr add 192.168.15.1 dev veth-c
+
+# Turn up container link
+ip -n container link set veth-c up
+
+# Add Ip to vswitch
+ip addr add 192.168.15.5/24 dev v-net-c
