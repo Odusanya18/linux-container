@@ -51,10 +51,10 @@ func child() {
 	SetNewUTS()
 	ChrootAndChpath()
 	SetNewNS()
+	WaitForNetwork()
 	WelcomeSession()
 	ContainerProcess()
 	UnsetNewNS()
-	WaitForNetwork()
 }
 
 func WelcomeSession() {
